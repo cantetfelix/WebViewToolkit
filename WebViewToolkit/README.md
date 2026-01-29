@@ -1,6 +1,6 @@
 # WebView Toolkit for Unity - Package Documentation
 
-**Version 1.0.0**
+**Version 1.3.0**
 
 Native WebView2 integration for Unity with DirectX 11/12 support. This package provides high-performance, off-screen rendering of modern web content directly to Unity textures.
 
@@ -758,7 +758,7 @@ webView.Navigate(fileUrl);
 
 ## Samples
 
-The package includes two comprehensive samples demonstrating different integration approaches.
+The package includes six progressive samples that teach you WebViewToolkit from beginner to intermediate level.
 
 ### Importing Samples
 
@@ -767,41 +767,89 @@ The package includes two comprehensive samples demonstrating different integrati
 3. Expand the **Samples** section
 4. Click **Import** next to the desired sample
 
-### BasicWebView Sample
+### Learning Path
 
-**Location:** `Samples~/BasicWebView/`
+We recommend completing the samples in order for the best learning experience:
 
-Demonstrates basic WebViewBehaviour usage with traditional Unity UI.
+#### 01 - Hello WebView
+**Difficulty:** Beginner | **Time:** 5 minutes
 
-**What you'll learn:**
-- Using WebViewBehaviour component
-- Basic navigation controls (Go, Back, Forward, Refresh)
-- Handling navigation events
-- URL input with Enter key support
-- Status display
-
-**Key Files:**
-- `BasicWebViewSample.cs` - Main sample script
-- `BasicWebViewSample.unity` - Demo scene
-- `README.md` - Sample-specific instructions
-
-### UIToolkit Demo Sample
-
-**Location:** `Samples~/UIToolkitDemo/`
-
-Demonstrates WebViewElement and WebViewPanel with UIToolkit.
+Your first WebView! Shows the minimum code needed to display a web page in Unity using UIToolkit.
 
 **What you'll learn:**
-- Creating WebViewElement programmatically
-- Using WebViewPanel for full browser UI
-- Dynamic layout with FlexLayout
-- UIToolkit event handling
-- Address bar and navigation controls
+- Creating a WebViewElement in UXML
+- Basic scene setup with UIDocument
+- Initial URL configuration
 
-**Key Files:**
-- `WebViewUIToolkitDemo.cs` - Main sample script
-- `WebViewUIToolkitDemo.unity` - Demo scene
-- `README.md` - Sample-specific instructions
+#### 02 - Navigation
+**Difficulty:** Beginner | **Time:** 15 minutes
+
+Learn how to navigate between pages, manage history, and respond to navigation events.
+
+**What you'll learn:**
+- Programmatic navigation with `Navigate()`
+- Back/Forward history with `GoBack()`/`GoForward()`
+- Checking navigation state with `CanGoBack()`/`CanGoForward()`
+- Handling `NavigationCompleted` events
+- Enabling/disabling UI based on state
+
+#### 03 - JavaScript Bridge
+**Difficulty:** Intermediate | **Time:** 30 minutes
+
+Master two-way communication between C# and JavaScript. Essential for building interactive web-based UIs.
+
+**What you'll learn:**
+- Calling JavaScript from C# with `ExecuteScript()`
+- Receiving messages from JavaScript via `window.chrome.webview.postMessage()`
+- JSON serialization for structured data
+- Building game UIs that respond to player actions
+- Event-driven communication patterns
+
+#### 04 - Dynamic HTML
+**Difficulty:** Intermediate | **Time:** 30 minutes
+
+Generate web content dynamically from C# data. Perfect for inventory systems, quest logs, and leaderboards.
+
+**What you'll learn:**
+- Loading HTML strings with `NavigateToString()`
+- Building HTML programmatically with C# templates
+- Real-time content updates
+- Creating data-driven UIs (inventory, quest log, settings)
+- HTML templating best practices
+
+#### 05 - Interactive Input
+**Difficulty:** Intermediate | **Time:** 20 minutes
+
+Understand how WebView handles mouse and keyboard input, and how to interact with web forms.
+
+**What you'll learn:**
+- How WebViewElement forwards mouse events automatically
+- Understanding normalized [0-1] coordinate system
+- Interacting with web forms (inputs, buttons, checkboxes)
+- Mouse hover effects and wheel scrolling
+- Debugging input coordinate mapping
+
+#### 06 - Multiple WebViews
+**Difficulty:** Intermediate | **Time:** 25 minutes
+
+Learn to manage multiple WebView instances simultaneously for dashboards or split-screen browsers.
+
+**What you'll learn:**
+- Creating multiple WebViewElements in one scene
+- Proper lifecycle management (creation and disposal)
+- Independent navigation for each instance
+- Performance considerations and optimization
+- Memory management best practices
+
+### Sample Structure
+
+Each sample includes:
+- **Unity Scene** - Ready-to-play demo scene
+- **C# Scripts** - Thoroughly commented code
+- **UXML/USS Files** - UIToolkit layouts and styles
+- **README.md** - Detailed walkthrough and explanations
+
+For the complete samples overview and additional learning resources, see `Samples~/README.md` after importing.
 
 ---
 
@@ -1163,6 +1211,6 @@ webView.MessageReceived += (msg) => {
 
 ---
 
-**Package Version:** 1.0.0
-**Last Updated:** 2026-01-26
+**Package Version:** 1.3.0
+**Last Updated:** 2026-01-29
 **License:** MIT
