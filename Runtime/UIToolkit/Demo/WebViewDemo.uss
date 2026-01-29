@@ -1,0 +1,229 @@
+/* ==============================================================================
+   WebView Demo - Premium Material Theme
+   ============================================================================== */
+
+:root {
+    /* Color Palette */
+    --color-surface-base: #121212;
+    --color-surface-1: #1E1E1E;
+    --color-surface-2: #252525;
+    --color-surface-3: #2C2C2C;
+    --color-primary: #BB86FC;
+    --color-primary-variant: #3700B3;
+    --color-secondary: #03DAC6;
+    --color-text-high: #FFFFFF;
+    --color-text-medium: #B0B0B0;
+    --color-text-low: #757575;
+    --color-divider: #333333;
+    
+    /* Metrics */
+    --sidebar-width: 250px;
+    --toolbar-height: 60px;
+    --radius-s: 4px;
+    --radius-m: 8px;
+    --radius-l: 16px;
+    --radius-full: 10px;
+}
+
+/* Main Window Container */
+.browser-window {
+    flex-direction: row;
+    flex-grow: 1;
+    background-color: var(--color-surface-base);
+    color: var(--color-text-high);
+}
+
+/* ==============================================================================
+   Sidebar Area
+   ============================================================================== */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--color-surface-1);
+    border-right-width: 1px;
+    border-right-color: var(--color-divider);
+    padding: 20px;
+    flex-direction: column;
+}
+
+.sidebar__title {
+    font-size: 20px;
+    -unity-font-style: bold;
+    color: var(--color-secondary);
+    margin-bottom: 24px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.sidebar__section-title {
+    font-size: 12px;
+    -unity-font-style: bold;
+    color: var(--color-text-low);
+    margin-bottom: 12px;
+    margin-top: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sidebar__btn {
+    flex-direction: row;
+    align-items: center;
+    height: 48px;
+    padding-left: 16px;
+    margin-bottom: 8px;
+    background-color: transparent;
+    border-width: 0;
+    border-radius: var(--radius-m);
+    transition-duration: 0.2s;
+    color: var(--color-text-medium);
+}
+
+.sidebar__btn:hover {
+    background-color: var(--color-surface-3);
+    color: var(--color-text-high);
+    scale: 1.02;
+}
+
+.sidebar__btn:active {
+    background-color: var(--color-primary-variant);
+}
+
+.sidebar__btn--history {
+    height: 32px;
+    font-size: 12px;
+}
+
+/* ==============================================================================
+   Main Content Area
+   ============================================================================== */
+.content-area {
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: var(--color-surface-base);
+}
+
+/* ==============================================================================
+   Toolbar
+   ============================================================================== */
+.toolbar {
+    height: var(--toolbar-height);
+    flex-direction: row;
+    align-items: center;
+    padding: 0 24px;
+    background-color: var(--color-surface-2);
+    border-bottom-width: 1px;
+    border-bottom-color: var(--color-divider);
+}
+
+/* Navigation Buttons */
+.nav-group {
+    flex-direction: row;
+    margin-right: 16px;
+}
+
+.nav-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    background-color: transparent;
+    border-width: 0;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+    color: var(--color-text-high);
+    font-size: 16px;
+    transition-duration: 0.2s;
+}
+
+.nav-btn:hover {
+    background-color: var(--color-surface-3);
+    scale: 1.1;
+}
+
+.nav-btn:disabled {
+    opacity: 0.3;
+}
+
+/* Address Bar */
+.address-container {
+    flex-grow: 1;
+    background-color: var(--color-surface-base);
+    border-radius: var(--radius-full);
+    flex-direction: row;
+    align-items: center;
+    padding: 4px 16px;
+    border-width: 1px;
+    border-color: var(--color-divider);
+    margin-right: 16px;
+}
+
+.address-bar {
+    flex-grow: 1;
+    background-color: transparent;
+    border-width: 0;
+    margin: 0;
+    padding: 0; /* Let input handle padding or container */
+    color: var(--color-text-high);
+    font-size: 14px;
+}
+
+/* Target both base and specific input classes to be safe */
+.address-bar > .unity-base-text-field__input,
+.address-bar > .unity-text-field__input {
+    background-color: transparent;
+    border-width: 0;
+    border-radius: 0;
+    margin: 0;
+    padding: 8px 4px; /* Vertical centering */
+    color: var(--color-text-high);
+    -unity-text-align: middle-left;
+}
+
+/* Remove default focus ring on the internal input if present */
+.address-bar:focus > .unity-base-text-field__input,
+.address-bar:focus > .unity-text-field__input {
+    border-width: 0;
+    border-color: transparent;
+}
+
+.go-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-primary);
+    border-width: 0;
+    color: #000;
+    -unity-font-style: bold;
+}
+
+.go-btn:hover {
+    background-color: var(--color-secondary);
+}
+
+.lock-icon {
+    color: var(--color-secondary);
+    margin-right: 8px;
+}
+
+/* Status Bar */
+.status-bar {
+    height: 24px;
+    background-color: var(--color-surface-2);
+    border-top-width: 1px;
+    border-top-color: var(--color-divider);
+    flex-direction: row;
+    align-items: center;
+    padding: 0 16px;
+    justify-content: space-between;
+}
+
+.status-label {
+    font-size: 10px;
+    color: var(--color-text-low);
+}
+
+/* ==============================================================================
+   WebView Content
+   ============================================================================== */
+.webview-panel {
+    flex-grow: 1;
+    background-color: #000; /* Placeholder while loading */
+}

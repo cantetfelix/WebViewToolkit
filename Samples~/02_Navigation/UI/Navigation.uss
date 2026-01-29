@@ -1,0 +1,138 @@
+/* ============================================================================
+ * Navigation Sample - Styling
+ * ============================================================================
+ * A clean, modern browser UI with toolbar, address bar, and status bar.
+ * ============================================================================
+ */
+
+#root {
+    background-color: rgb(40, 40, 40);
+    flex-grow: 1;
+}
+
+/* ============================================================================
+ * Toolbar
+ * ============================================================================ */
+
+.toolbar {
+    flex-direction: row;
+    height: 40px;
+    background-color: rgb(50, 50, 50);
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(30, 30, 30);
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    align-items: center;
+}
+
+/* ============================================================================
+ * Navigation Buttons
+ * ============================================================================ */
+
+.nav-button {
+    width: 32px;
+    height: 28px;
+    margin-left: 2px;
+    margin-right: 2px;
+    border-radius: 4px;
+    background-color: rgb(70, 70, 70);
+    color: rgb(220, 220, 220);
+    border-width: 0;
+    font-size: 14px;
+    -unity-text-align: middle-center;
+}
+
+.nav-button:hover {
+    background-color: rgb(90, 90, 90);
+}
+
+.nav-button:active {
+    background-color: rgb(60, 60, 60);
+}
+
+.nav-button:disabled {
+    opacity: 0.4;
+    color: rgb(150, 150, 150);
+}
+
+/* ============================================================================
+ * Address Bar
+ * ============================================================================ */
+
+.address-bar {
+    flex-grow: 1;
+    height: 28px;
+    margin-left: 8px;
+    margin-right: 4px;
+    border-radius: 4px;
+    background-color: rgb(60, 60, 60);
+    border-color: rgb(80, 80, 80);
+    border-width: 1px;
+    padding-left: 8px;
+    padding-right: 8px;
+    color: rgb(240, 240, 240);
+}
+
+.address-bar > #unity-text-input {
+    background-color: transparent;
+    border-width: 0;
+    color: rgb(240, 240, 240);
+    padding: 0;
+}
+
+.address-bar:focus {
+    border-color: rgb(100, 150, 250);
+}
+
+/* ============================================================================
+ * Go Button
+ * ============================================================================ */
+
+.go-button {
+    width: 50px;
+    height: 28px;
+    border-radius: 4px;
+    background-color: rgb(80, 120, 200);
+    color: white;
+    border-width: 0;
+    font-size: 12px;
+    -unity-font-style: bold;
+}
+
+.go-button:hover {
+    background-color: rgb(100, 140, 220);
+}
+
+.go-button:active {
+    background-color: rgb(60, 100, 180);
+}
+
+/* ============================================================================
+ * WebView
+ * ============================================================================ */
+
+#webview {
+    flex-grow: 1;
+}
+
+/* ============================================================================
+ * Status Bar
+ * ============================================================================ */
+
+.status-bar {
+    height: 24px;
+    background-color: rgb(50, 50, 50);
+    border-top-width: 1px;
+    border-top-color: rgb(30, 30, 30);
+    padding-left: 8px;
+    padding-right: 8px;
+    justify-content: center;
+}
+
+.status-text {
+    font-size: 11px;
+    color: rgb(180, 180, 180);
+    -unity-text-align: middle-left;
+}

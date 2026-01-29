@@ -1,0 +1,16 @@
+/* ============================================================================
+ * Hello WebView - Minimal Styling
+ * ============================================================================
+ * This is a very basic stylesheet. The WebViewElement handles all the heavy
+ * lifting of displaying web content.
+ * ============================================================================
+ */
+
+#root {
+    background-color: rgb(45, 45, 45);
+    flex-grow: 1;
+}
+
+#webview {
+    flex-grow: 1;
+}

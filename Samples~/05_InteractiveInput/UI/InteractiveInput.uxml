@@ -1,0 +1,57 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:wv="WebViewToolkit.UIToolkit">
+    <ui:VisualElement name="root" style="flex-grow: 1; flex-direction: row;">
+        <!-- Left Panel: Status Monitor -->
+        <ui:VisualElement name="status-panel" class="status-panel">
+            <ui:Label text="Interactive Input Monitor" class="panel-header" />
+
+            <!-- Mouse Position Section -->
+            <ui:VisualElement name="mouse-section" class="section">
+                <ui:Label text="🖱️ Mouse Position" class="section-label" />
+                <ui:Label name="lbl-mouse-x" text="X: 0.000" class="info-label" />
+                <ui:Label name="lbl-mouse-y" text="Y: 0.000" class="info-label" />
+                <ui:Label name="lbl-mouse-normalized" text="Normalized: (0.000, 0.000)" class="info-label" />
+            </ui:VisualElement>
+
+            <!-- Click Tracking Section -->
+            <ui:VisualElement name="click-section" class="section">
+                <ui:Label text="👆 Last Click" class="section-label" />
+                <ui:Label name="lbl-click-position" text="Position: None" class="info-label" />
+                <ui:Label name="lbl-click-time" text="Time: Never" class="info-label" />
+            </ui:VisualElement>
+
+            <!-- Scroll Tracking Section -->
+            <ui:VisualElement name="scroll-section" class="section">
+                <ui:Label text="🖱️ Scroll Wheel" class="section-label" />
+                <ui:Label name="lbl-scroll-delta" text="Delta: 0" class="info-label" />
+                <ui:Label name="lbl-scroll-total" text="Total: 0" class="info-label" />
+            </ui:VisualElement>
+
+            <!-- Form Data Section -->
+            <ui:VisualElement name="form-section" class="section">
+                <ui:Label text="📝 Form Submissions" class="section-label" />
+                <ui:Label name="lbl-form-count" text="Total: 0" class="info-label" />
+                <ui:Label name="lbl-last-form-data" text="Last Data: None" class="info-label" />
+            </ui:VisualElement>
+
+            <!-- Instructions -->
+            <ui:VisualElement name="instructions-section" class="section">
+                <ui:Label text="ℹ️ Instructions" class="section-label" />
+                <ui:Label text="• Move mouse over the form" class="instruction-text" />
+                <ui:Label text="• Click form elements" class="instruction-text" />
+                <ui:Label text="• Fill out and submit the form" class="instruction-text" />
+                <ui:Label text="• Use scroll wheel to scroll page" class="instruction-text" />
+                <ui:Label text="• Watch coordinates update in real-time" class="instruction-text" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- Right Panel: WebView Display -->
+        <ui:VisualElement name="webview-panel" class="webview-panel">
+            <ui:Label text="Interactive Form" class="panel-header" />
+            <wv:WebViewElement
+                name="webview"
+                enable-dev-tools="false"
+                auto-create="true"
+                style="flex-grow: 1; border-width: 1px; border-color: rgb(60, 60, 60);" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,123 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:wv="WebViewToolkit.UIToolkit">
+    <ui:VisualElement name="root" style="flex-grow: 1; background-color: rgb(35, 35, 35);">
+        <!-- Header -->
+        <ui:VisualElement name="header" class="header">
+            <ui:Label text="Multiple WebViews Manager" class="header-title" />
+            <ui:Label text="Managing 4 independent WebView instances" class="header-subtitle" />
+
+            <!-- Performance Stats -->
+            <ui:VisualElement name="stats-panel" class="stats-panel">
+                <ui:Label name="lbl-fps" text="FPS: 0" class="stat-label" />
+                <ui:Label name="lbl-memory" text="Memory: 0 MB" class="stat-label" />
+                <ui:Label name="lbl-active-views" text="Active: 4/4" class="stat-label" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- WebView Grid (2x2) -->
+        <ui:VisualElement name="webview-grid" class="webview-grid">
+            <!-- Top Row -->
+            <ui:VisualElement name="row-top" class="grid-row">
+                <!-- WebView 1 - Top Left -->
+                <ui:VisualElement name="webview-card-1" class="webview-card">
+                    <ui:VisualElement name="card-header-1" class="card-header">
+                        <ui:Label text="WebView 1" class="card-title" />
+                        <ui:VisualElement name="card-controls-1" class="card-controls">
+                            <ui:Button name="btn-back-1" text="◀" class="nav-button" />
+                            <ui:Button name="btn-forward-1" text="▶" class="nav-button" />
+                            <ui:Button name="btn-refresh-1" text="⟳" class="nav-button" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="address-bar-1" class="address-bar">
+                        <ui:TextField name="txt-url-1" class="url-textfield" />
+                        <ui:Button name="btn-go-1" text="Go" class="go-button" />
+                    </ui:VisualElement>
+                    <wv:WebViewElement
+                        name="webview-1"
+                        enable-dev-tools="false"
+                        auto-create="true"
+                        class="webview-element" />
+                    <ui:Label name="lbl-status-1" text="Ready" class="status-label" />
+                </ui:VisualElement>
+
+                <!-- WebView 2 - Top Right -->
+                <ui:VisualElement name="webview-card-2" class="webview-card">
+                    <ui:VisualElement name="card-header-2" class="card-header">
+                        <ui:Label text="WebView 2" class="card-title" />
+                        <ui:VisualElement name="card-controls-2" class="card-controls">
+                            <ui:Button name="btn-back-2" text="◀" class="nav-button" />
+                            <ui:Button name="btn-forward-2" text="▶" class="nav-button" />
+                            <ui:Button name="btn-refresh-2" text="⟳" class="nav-button" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="address-bar-2" class="address-bar">
+                        <ui:TextField name="txt-url-2" class="url-textfield" />
+                        <ui:Button name="btn-go-2" text="Go" class="go-button" />
+                    </ui:VisualElement>
+                    <wv:WebViewElement
+                        name="webview-2"
+                        enable-dev-tools="false"
+                        auto-create="true"
+                        class="webview-element" />
+                    <ui:Label name="lbl-status-2" text="Ready" class="status-label" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Bottom Row -->
+            <ui:VisualElement name="row-bottom" class="grid-row">
+                <!-- WebView 3 - Bottom Left -->
+                <ui:VisualElement name="webview-card-3" class="webview-card">
+                    <ui:VisualElement name="card-header-3" class="card-header">
+                        <ui:Label text="WebView 3" class="card-title" />
+                        <ui:VisualElement name="card-controls-3" class="card-controls">
+                            <ui:Button name="btn-back-3" text="◀" class="nav-button" />
+                            <ui:Button name="btn-forward-3" text="▶" class="nav-button" />
+                            <ui:Button name="btn-refresh-3" text="⟳" class="nav-button" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="address-bar-3" class="address-bar">
+                        <ui:TextField name="txt-url-3" class="url-textfield" />
+                        <ui:Button name="btn-go-3" text="Go" class="go-button" />
+                    </ui:VisualElement>
+                    <wv:WebViewElement
+                        name="webview-3"
+                        enable-dev-tools="false"
+                        auto-create="true"
+                        class="webview-element" />
+                    <ui:Label name="lbl-status-3" text="Ready" class="status-label" />
+                </ui:VisualElement>
+
+                <!-- WebView 4 - Bottom Right -->
+                <ui:VisualElement name="webview-card-4" class="webview-card">
+                    <ui:VisualElement name="card-header-4" class="card-header">
+                        <ui:Label text="WebView 4" class="card-title" />
+                        <ui:VisualElement name="card-controls-4" class="card-controls">
+                            <ui:Button name="btn-back-4" text="◀" class="nav-button" />
+                            <ui:Button name="btn-forward-4" text="▶" class="nav-button" />
+                            <ui:Button name="btn-refresh-4" text="⟳" class="nav-button" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="address-bar-4" class="address-bar">
+                        <ui:TextField name="txt-url-4" class="url-textfield" />
+                        <ui:Button name="btn-go-4" text="Go" class="go-button" />
+                    </ui:VisualElement>
+                    <wv:WebViewElement
+                        name="webview-4"
+                        enable-dev-tools="false"
+                        auto-create="true"
+                        class="webview-element" />
+                    <ui:Label name="lbl-status-4" text="Ready" class="status-label" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- Footer with Quick Links -->
+        <ui:VisualElement name="footer" class="footer">
+            <ui:Label text="Quick Links:" class="footer-label" />
+            <ui:Button name="btn-preset-news" text="📰 News Sites" class="preset-button" />
+            <ui:Button name="btn-preset-dev" text="💻 Dev Resources" class="preset-button" />
+            <ui:Button name="btn-preset-social" text="🌐 Social Media" class="preset-button" />
+            <ui:Button name="btn-preset-docs" text="📚 Documentation" class="preset-button" />
+            <ui:Button name="btn-reset-all" text="🔄 Reset All" class="preset-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

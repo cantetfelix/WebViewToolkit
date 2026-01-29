@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:wv="WebViewToolkit.UIToolkit">
+    <ui:VisualElement name="root" style="flex-grow: 1;">
+        <wv:WebViewElement
+            name="webview"
+            initial-url="https://www.google.com"
+            enable-dev-tools="false"
+            style="flex-grow: 1;" />
+    </ui:VisualElement>
+</ui:UXML>
