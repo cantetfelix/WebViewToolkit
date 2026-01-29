@@ -1,0 +1,27 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:wv="WebViewToolkit.UIToolkit">
+    <ui:VisualElement name="root" style="flex-grow: 1;">
+        <!-- Toolbar -->
+        <ui:VisualElement name="toolbar" class="toolbar">
+            <!-- Navigation Buttons -->
+            <ui:Button name="btn-back" text="◀" class="nav-button" tooltip="Go Back" />
+            <ui:Button name="btn-forward" text="▶" class="nav-button" tooltip="Go Forward" />
+            <ui:Button name="btn-refresh" text="↻" class="nav-button" tooltip="Refresh" />
+
+            <!-- Address Bar -->
+            <ui:TextField name="address-bar" class="address-bar" />
+            <ui:Button name="btn-go" text="Go" class="go-button" tooltip="Navigate" />
+        </ui:VisualElement>
+
+        <!-- WebView Content -->
+        <wv:WebViewElement
+            name="webview"
+            initial-url="https://www.google.com"
+            enable-dev-tools="false"
+            style="flex-grow: 1;" />
+
+        <!-- Status Bar -->
+        <ui:VisualElement name="status-bar" class="status-bar">
+            <ui:Label name="status-text" text="Ready" class="status-text" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

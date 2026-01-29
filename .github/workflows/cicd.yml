@@ -1,0 +1,506 @@
+name: Build and Deploy UPM
+
+on:
+  push:
+    branches:
+      - master
+
+  pull_request:
+    branches:
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-test:
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout Repository
+
+        uses: actions/checkout@v4
+
+        with:
+          fetch-depth: 0
+
+          lfs: true
+
+      - name: Check for Plugin Changes
+
+        id: check_plugin_changes
+
+        shell: pwsh
+
+        run: |
+
+          # For push to master, always build to ensure artifacts are up to date
+
+          if ($env:GITHUB_EVENT_NAME -eq "push" -and $env:GITHUB_REF -eq "refs/heads/master") {
+
+            Write-Host "Push to master detected - forcing native DLL build"
+
+            echo "plugin_changed=true" >> $env:GITHUB_OUTPUT
+
+            exit 0
+
+          }
+
+
+
+          # For PRs, check if plugin files changed
+
+          if ($env:GITHUB_EVENT_NAME -eq "pull_request") {
+
+            $baseRef = "origin/${{ github.base_ref }}"
+
+            Write-Host "Comparing PR against base branch: $baseRef"
+
+
+
+            # Ensure we have the latest base branch
+
+            git fetch origin ${{ github.base_ref }} --quiet
+
+
+
+            # Get list of changed files using three-dot diff (merge-base comparison)
+
+            $changedFiles = git diff --name-only "$baseRef...HEAD"
+
+
+
+            Write-Host "Changed files:"
+
+            $changedFiles | ForEach-Object { Write-Host "  - $_" }
+
+
+
+            # Check if any files in WebViewToolkitPlugin directory changed
+
+            $pluginChanged = $false
+
+            foreach ($file in $changedFiles) {
+
+              if ($file -like "WebViewToolkitPlugin/*") {
+
+                $pluginChanged = $true
+
+                break
+
+              }
+
+            }
+
+
+
+            if ($pluginChanged) {
+
+              Write-Host ""
+
+              Write-Host "✓ Plugin source code changes detected - native DLL will be built"
+
+              echo "plugin_changed=true" >> $env:GITHUB_OUTPUT
+
+            } else {
+
+              Write-Host ""
+
+              Write-Host "○ No plugin changes detected - skipping native DLL build"
+
+              echo "plugin_changed=false" >> $env:GITHUB_OUTPUT
+
+            }
+
+          }
+
+      - name: Setup MSVC
+
+        if: steps.check_plugin_changes.outputs.plugin_changed == 'true'
+
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Restore VCPKG Baseline
+        if: steps.check_plugin_changes.outputs.plugin_changed == 'true'
+        shell: pwsh
+        run: |
+          $json = Get-Content "WebViewToolkitPlugin/vcpkg.json" | ConvertFrom-Json
+          $json | Add-Member -MemberType NoteProperty -Name "builtin-baseline" -Value "f14401ca0f2754347c3864da7488a9b955b4e47a"
+          $json | ConvertTo-Json -Depth 10 | Set-Content "WebViewToolkitPlugin/vcpkg.json"
+
+      - name: Setup vcpkg
+
+        if: steps.check_plugin_changes.outputs.plugin_changed == 'true'
+
+        uses: lukka/run-vcpkg@v11
+
+        with:
+          vcpkgDirectory: ${{ github.workspace }}/../vcpkg
+
+          vcpkgJsonGlob: "WebViewToolkitPlugin/vcpkg.json"
+
+      - name: Get Current Version
+
+        id: get_version
+
+        shell: pwsh
+
+        run: |
+
+          $packageJson = Get-Content "WebViewToolkit/package.json" | ConvertFrom-Json
+
+          $version = $packageJson.version
+
+          echo "VERSION=$version" >> $env:GITHUB_ENV
+
+          echo "version=$version" >> $env:GITHUB_OUTPUT
+
+      - name: Validate Version Bump
+
+        shell: pwsh
+
+        run: |
+
+          $currentVersion = [version]$env:VERSION
+
+          Write-Host "Current version: $currentVersion"
+
+
+
+          # Try to get the latest tag from the upm branch
+
+          git fetch origin upm --tags
+
+          $latestTag = git tag -l "v*" --sort=-v:refname | Select-Object -First 1
+
+
+
+          if ($latestTag) {
+
+              $previousVersion = [version]($latestTag -replace "^v", "")
+
+              Write-Host "Previous version: $previousVersion"
+
+             
+
+              if ($currentVersion -le $previousVersion) {
+
+                  Write-Error "Version [ $currentVersion ] must be greater than latest tag [ $previousVersion ]. Please update package.json."
+
+                  exit 1
+
+              }
+
+          } else {
+
+              Write-Host "No previous tags found. Skipping bump validation."
+
+          }
+
+      - name: Verify Changelog Update
+
+        if: github.event_name == 'pull_request'
+
+        shell: pwsh
+
+        run: |
+
+          $changedFiles = git diff --name-only origin/master...HEAD
+
+          if ($changedFiles -notcontains "WebViewToolkit/CHANGELOG.md") {
+
+              Write-Error "CHANGELOG.md has not been updated in this PR. Please document your changes."
+
+              exit 1
+
+          }
+
+          Write-Host "CHANGELOG.md update verified."
+
+      - name: Configure CMake
+
+        if: steps.check_plugin_changes.outputs.plugin_changed == 'true'
+
+        run: cmake -S WebViewToolkitPlugin --preset release
+
+      - name: Build Native DLL
+
+        if: steps.check_plugin_changes.outputs.plugin_changed == 'true'
+
+        run: cmake --build WebViewToolkitPlugin/build/release --config Release
+
+      - name: Install Native Artifacts
+
+        if: steps.check_plugin_changes.outputs.plugin_changed == 'true'
+
+        shell: pwsh
+
+        run: |
+
+          $pluginDir = "WebViewToolkit/Runtime/Plugins/x86_64"
+
+          if (!(Test-Path $pluginDir)) { New-Item -ItemType Directory -Force $pluginDir }
+
+
+
+          # Copy DLL and PDB for tests
+
+          Copy-Item "WebViewToolkitPlugin/build/release/bin/Release/WebViewToolkit.dll" "$pluginDir/WebViewToolkit.dll" -Force
+
+          if (Test-Path "WebViewToolkitPlugin/build/release/bin/Release/WebViewToolkit.pdb") {
+
+              Copy-Item "WebViewToolkitPlugin/build/release/bin/Release/WebViewToolkit.pdb" "$pluginDir/WebViewToolkit.pdb" -Force
+
+          }
+
+
+
+          Write-Host "Native artifacts installed to $pluginDir"
+
+      - name: Ensure Native Artifacts Exist
+
+        if: github.event_name == 'pull_request' && steps.check_plugin_changes.outputs.plugin_changed == 'false'
+
+        shell: pwsh
+
+        run: |
+
+          $pluginDir = "WebViewToolkit/Runtime/Plugins/x86_64"
+
+          $dllPath = "$pluginDir/WebViewToolkit.dll"
+
+
+
+          # Check if DLL already exists in the repository (from previous commit)
+
+          if (Test-Path $dllPath) {
+
+            Write-Host "✓ Using existing DLL from repository (no plugin changes detected)"
+
+          } else {
+
+            Write-Host "⚠ No DLL found and plugin hasn't changed"
+
+            Write-Host "Attempting to download from latest release..."
+
+
+
+            # Get the latest release
+
+            $latestRelease = gh release list --limit 1 --json tagName --jq '.[0]' 2>$null
+
+            if ($latestRelease) {
+
+              $releaseData = $latestRelease | ConvertFrom-Json
+
+              $tagName = $releaseData.tagName
+
+
+
+              # Download the DLL from the latest release
+
+              if (!(Test-Path $pluginDir)) { New-Item -ItemType Directory -Force $pluginDir }
+
+
+
+              Write-Host "Attempting to download DLL from release $tagName..."
+
+              gh release download $tagName --pattern "WebViewToolkit.dll" --dir $pluginDir 2>$null
+
+              $dllDownloadExitCode = $LASTEXITCODE
+
+
+
+              # Check if download was successful
+
+              if (Test-Path $dllPath) {
+
+                Write-Host "✓ Downloaded DLL from release $tagName"
+
+
+
+                # Try to download PDB as well (optional)
+
+                gh release download $tagName --pattern "WebViewToolkit.pdb" --dir $pluginDir 2>$null
+
+                if (Test-Path "$pluginDir/WebViewToolkit.pdb") {
+
+                  Write-Host "✓ Downloaded PDB from release $tagName"
+
+                }
+
+              } else {
+
+                Write-Host "⚠ DLL not available in release $tagName (exit code: $dllDownloadExitCode)"
+
+                Write-Host "This is expected if the release was created before DLL artifacts were added."
+
+                Write-Host "The PR can proceed - DLL will be built when merged to master."
+
+              }
+
+            } else {
+
+              Write-Host "⚠ No releases available to download from"
+
+              Write-Host "This is expected for the first PR. The DLL will be built when merged to master."
+
+            }
+
+          }
+
+
+
+          # Ensure the step exits successfully even if gh commands failed
+
+          exit 0
+
+        env:
+
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Prepare Release Artifacts
+
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master' && steps.check_plugin_changes.outputs.plugin_changed == 'false'
+
+        shell: pwsh
+
+        run: |
+
+          # If we didn't build the DLL, copy it from the plugin dir to the build location for the release step
+
+          # Note: With current logic, this step should not run since push to master always builds
+
+          $pluginDir = "WebViewToolkit/Runtime/Plugins/x86_64"
+
+          $buildDir = "WebViewToolkitPlugin/build/release/bin/Release"
+
+
+
+          if (!(Test-Path $buildDir)) { New-Item -ItemType Directory -Force $buildDir }
+
+
+
+          if (Test-Path "$pluginDir/WebViewToolkit.dll") {
+
+            Copy-Item "$pluginDir/WebViewToolkit.dll" "$buildDir/WebViewToolkit.dll" -Force
+
+            Write-Host "Copied DLL to build directory for release"
+
+          }
+
+
+
+          if (Test-Path "$pluginDir/WebViewToolkit.pdb") {
+
+            Copy-Item "$pluginDir/WebViewToolkit.pdb" "$buildDir/WebViewToolkit.pdb" -Force
+
+            Write-Host "Copied PDB to build directory for release"
+
+          }
+
+      - name: Extract Release Notes
+
+        id: extract_notes
+
+        shell: pwsh
+
+        run: |
+
+          $version = $env:VERSION
+
+          $changelog = Get-Content "WebViewToolkit/CHANGELOG.md" -Raw
+
+          # Extract between ## [version] and next ##
+
+          $pattern = "(?s)## \[$version\].*?\n(.*?)(?=\n## \[|$)"
+
+          if ($changelog -match $pattern) {
+
+              $notes = $matches[1].Trim()
+
+              $notes | Out-File "RELEASE_NOTES.md" -Encoding utf8
+
+              Write-Host "Extracted notes for v$version"
+
+          } else {
+
+              "Initial release of v$version" | Out-File "RELEASE_NOTES.md" -Encoding utf8
+
+              Write-Warning "Could not find changelog entry for v$version."
+
+          }
+
+      - name: Publish UPM Branch
+
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+
+        shell: pwsh
+
+        run: |
+
+          $version = $env:VERSION
+
+          $pluginDir = "WebViewToolkit/Runtime/Plugins/x86_64"
+
+
+
+          git config user.name "github-actions[bot]"
+
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+
+
+          # Force add the DLL/PDB that we processed in the Install Native Artifacts step
+
+          git add -f "$pluginDir/WebViewToolkit.dll"
+
+          if (Test-Path "$pluginDir/WebViewToolkit.pdb") {
+
+              git add -f "$pluginDir/WebViewToolkit.pdb"
+
+          }
+
+
+
+          git commit -m "chore: include native artifacts for v$version [skip ci]"
+
+
+
+          # Split only the WebViewToolkit folder to root of new branch
+
+          git subtree split --prefix=WebViewToolkit -b upm-split
+
+
+
+          # Force push to upm branch
+
+          git push origin upm-split:upm --force
+
+
+
+          # Tag the upm commit
+
+          git tag "v$version" upm-split
+
+          git push origin "v$version"
+
+      - name: Create GitHub Release
+
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+
+        uses: softprops/action-gh-release@v1
+
+        with:
+          tag_name: v${{ env.VERSION }}
+
+          body_path: RELEASE_NOTES.md
+
+          files: |
+
+            WebViewToolkitPlugin/build/release/bin/Release/WebViewToolkit.dll
+
+            WebViewToolkitPlugin/build/release/bin/Release/WebViewToolkit.pdb
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

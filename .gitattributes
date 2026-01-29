@@ -1,0 +1,16 @@
+# Auto-detect text files and perform LF normalization
+* text=auto
+
+# Unity specific
+*.meta -text
+*.yaml text
+*.unity text
+*.prefab text
+*.asset text
+
+# Native binaries
+*.dll binary
+*.pdb binary
+*.lib binary
+*.obj binary
+*.exe binary

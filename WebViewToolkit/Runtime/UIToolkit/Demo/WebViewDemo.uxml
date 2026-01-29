@@ -1,0 +1,66 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:wv="WebViewToolkit.UIToolkit" xsi="http://www.w3.org/2001/XMLSchema-instance" editor-extension-mode="False">
+    <!-- Import Stylesheet to ensure variables are resolved during CloneTree -->
+    <ui:Style src="WebViewDemo.uss" />
+
+    <!-- Main Window Container -->
+    <ui:VisualElement class="browser-window">
+        
+        <!-- Sidebar -->
+        <ui:VisualElement class="sidebar">
+            <ui:Label text="WebView Toolkit" class="sidebar__title" />
+            
+            <ui:Label text="Quick Links" class="sidebar__section-title" />
+            <ui:Button text="Google" name="link-google" class="sidebar__btn" />
+            <ui:Button text="YouTube" name="link-youtube" class="sidebar__btn" />
+            <ui:Button text="GitHub" name="link-github" class="sidebar__btn" />
+            <ui:Button text="Unity Docs" name="link-unity" class="sidebar__btn" />
+            
+            <ui:Label text="Actions" class="sidebar__section-title" />
+            <ui:Button text="Execute JS" name="btn-js" class="sidebar__btn" />
+            <ui:Button text="Load HTML" name="btn-html" class="sidebar__btn" />
+            
+            <ui:Label text="History" class="sidebar__section-title" />
+            <ui:ScrollView name="history-list" style="flex-grow: 1;">
+                <!-- History items added here dynamically -->
+            </ui:ScrollView>
+        </ui:VisualElement>
+        
+        <!-- Main Content (Toolbar + WebView) -->
+        <ui:VisualElement class="content-area">
+            
+            <!-- Custom Toolbar -->
+            <ui:VisualElement class="toolbar">
+                <ui:VisualElement class="nav-group">
+                    <ui:Button text="◀" name="btn-back" class="nav-btn" tooltip="Go Back" />
+                    <ui:Button text="▶" name="btn-fwd" class="nav-btn" tooltip="Go Forward" />
+                    <ui:Button text="↻" name="btn-reload" class="nav-btn" tooltip="Reload" />
+                    <ui:Button text="⌂" name="btn-home" class="nav-btn" tooltip="Home" />
+                </ui:VisualElement>
+                
+                <ui:VisualElement class="address-container">
+                    <ui:Label text="🔒" class="lock-icon" />
+                    <ui:TextField name="address-bar" class="address-bar" />
+                    <ui:Button text="➔" name="btn-go" class="go-btn" />
+                </ui:VisualElement>
+                
+                <ui:VisualElement class="nav-group" style="margin-right: 0;">
+                    <ui:Button text="🔧" name="btn-devtools" class="nav-btn" tooltip="DevTools" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            
+            <!-- WebView Panel (Logic Provider) with Toolbar Hidden -->
+            <wv:WebViewPanel name="webview-panel" class="webview-panel"
+                             show-toolbar="false" 
+                             show-status-bar="false"
+                             initial-url="https://www.google.com" />
+                             
+            <!-- Status Bar -->
+            <ui:VisualElement class="status-bar">
+                <ui:Label text="Ready" name="status-label" class="status-label" />
+                <ui:Label text="DirectX 11" name="gfx-label" class="status-label" />
+            </ui:VisualElement>
+            
+        </ui:VisualElement>
+    </ui:VisualElement>
+
+</ui:UXML>

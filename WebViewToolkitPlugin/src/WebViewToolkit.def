@@ -1,0 +1,48 @@
+; ============================================================================
+; WebViewToolkit - Module Definition File
+; ============================================================================
+; Explicit DLL exports for Unity interop
+; ============================================================================
+
+; Note: LIBRARY name is omitted to let the linker use the actual output name
+
+EXPORTS
+    ; Unity Plugin Entry Points
+    UnityPluginLoad
+    UnityPluginUnload
+    GetRenderEventFunc
+    GetRenderEventAndDataFunc
+    
+    ; Callbacks
+    WebViewToolkit_SetLogCallback
+    WebViewToolkit_SetNavigationCallback
+    WebViewToolkit_SetMessageCallback
+    
+    ; Initialization
+    WebViewToolkit_Initialize
+    WebViewToolkit_Shutdown
+    WebViewToolkit_SignalApplicationQuit
+    WebViewToolkit_IsInitialized
+    
+    ; WebView Management
+    WebViewToolkit_CreateWebView
+    WebViewToolkit_DestroyWebView
+    WebViewToolkit_GetTexturePtr
+    WebViewToolkit_Resize
+    
+    ; Navigation
+    WebViewToolkit_Navigate
+    WebViewToolkit_NavigateToString
+    WebViewToolkit_ExecuteScript
+    WebViewToolkit_GoBack
+    WebViewToolkit_GoForward
+    WebViewToolkit_CanGoBack
+    WebViewToolkit_CanGoForward
+    
+    ; Input
+    WebViewToolkit_SendMouseEvent
+    WebViewToolkit_SendKeyEvent
+    
+    ; Render Events
+    WebViewToolkit_GetRenderEventFunc
+    WebViewToolkit_GetRenderEventAndDataFunc

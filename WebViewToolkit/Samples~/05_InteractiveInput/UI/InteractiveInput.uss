@@ -1,0 +1,96 @@
+/* ============================================================================
+ * Interactive Input Sample - Styling
+ * ============================================================================
+ * Two-panel layout: Status monitor on left, WebView with interactive form on right
+ * ============================================================================
+ */
+
+#root {
+    background-color: rgb(40, 40, 40);
+    flex-grow: 1;
+}
+
+/* ============================================================================
+ * Status Panel (Left Side)
+ * ============================================================================ */
+
+.status-panel {
+    width: 350px;
+    background-color: rgb(45, 45, 45);
+    border-right-width: 2px;
+    border-right-color: rgb(30, 30, 30);
+    padding: 16px;
+}
+
+.panel-header {
+    font-size: 16px;
+    -unity-font-style: bold;
+    color: rgb(220, 220, 220);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(70, 70, 70);
+}
+
+/* ============================================================================
+ * Sections
+ * ============================================================================ */
+
+.section {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    padding: 12px;
+    background-color: rgb(50, 50, 50);
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: rgb(60, 60, 60);
+}
+
+.section-label {
+    font-size: 12px;
+    -unity-font-style: bold;
+    color: rgb(180, 180, 180);
+    margin-bottom: 8px;
+}
+
+/* ============================================================================
+ * Info Labels
+ * ============================================================================ */
+
+.info-label {
+    font-size: 11px;
+    color: rgb(180, 180, 180);
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding: 4px 8px;
+    background-color: rgb(55, 55, 55);
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+}
+
+/* ============================================================================
+ * Instructions
+ * ============================================================================ */
+
+.instruction-text {
+    font-size: 11px;
+    color: rgb(160, 160, 160);
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding-left: 4px;
+}
+
+/* ============================================================================
+ * WebView Panel (Right Side)
+ * ============================================================================ */
+
+.webview-panel {
+    flex-grow: 1;
+    padding: 16px;
+    background-color: rgb(40, 40, 40);
+}
+
+#webview {
+    flex-grow: 1;
+    background-color: rgb(30, 30, 30);
+}

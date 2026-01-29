@@ -1,0 +1,56 @@
+{
+  "name": "com.webviewtoolkit.core",
+  "version": "1.2.0",
+  "displayName": "WebView Toolkit",
+  "description": "Native WebView2 integration for Unity UIToolkit with DirectX 11/12 support. Renders web content to textures for use in Unity UI.",
+  "unity": "2021.3",
+  "unityRelease": "0f1",
+  "documentationUrl": "https://github.com/cantetfelix/WebViewToolkit",
+  "changelogUrl": "https://github.com/cantetfelix/WebViewToolkit/blob/main/WebViewToolkit/CHANGELOG.md",
+  "licensesUrl": "https://github.com/cantetfelix/WebViewToolkit/blob/main/LICENSE",
+  "keywords": [
+    "webview",
+    "webview2",
+    "browser",
+    "html",
+    "uitoolkit",
+    "ui"
+  ],
+  "author": {
+    "name": "WebView Toolkit Team",
+    "url": "https://github.com/cantetfelix/WebViewToolkit"
+  },
+  "dependencies": {},
+  "samples": [
+    {
+      "displayName": "01 - Hello WebView",
+      "description": "Get started with the absolute basics of WebViewToolkit",
+      "path": "Samples~/01_HelloWebView"
+    },
+    {
+      "displayName": "02 - Navigation",
+      "description": "Learn URL navigation and history management",
+      "path": "Samples~/02_Navigation"
+    },
+    {
+      "displayName": "03 - JavaScript Bridge",
+      "description": "Two-way communication between C# and JavaScript",
+      "path": "Samples~/03_JavaScriptBridge"
+    },
+    {
+      "displayName": "04 - Dynamic HTML",
+      "description": "Generate and load HTML content dynamically from C#",
+      "path": "Samples~/04_DynamicHTML"
+    },
+    {
+      "displayName": "05 - Interactive Input",
+      "description": "Handle mouse and keyboard input in WebView",
+      "path": "Samples~/05_InteractiveInput"
+    },
+    {
+      "displayName": "06 - Multiple WebViews",
+      "description": "Manage multiple WebView instances simultaneously",
+      "path": "Samples~/06_MultipleWebViews"
+    }
+  ]
+}

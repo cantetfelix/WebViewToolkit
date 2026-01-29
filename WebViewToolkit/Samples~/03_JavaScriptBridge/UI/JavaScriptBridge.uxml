@@ -1,0 +1,48 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:wv="WebViewToolkit.UIToolkit">
+    <ui:VisualElement name="root" style="flex-grow: 1; flex-direction: row;">
+        <!-- Left Panel: Unity Controls -->
+        <ui:VisualElement name="control-panel" class="control-panel">
+            <ui:Label text="Unity Game Controls" class="panel-header" />
+
+            <!-- Game State Display -->
+            <ui:VisualElement name="game-state" class="section">
+                <ui:Label text="Current Game State:" class="section-label" />
+                <ui:Label name="lbl-score" text="Score: 0" class="stat-label" />
+                <ui:Label name="lbl-health" text="Health: 100" class="stat-label" />
+                <ui:Label name="lbl-level" text="Level: 1" class="stat-label" />
+            </ui:VisualElement>
+
+            <!-- Simulate Game Actions -->
+            <ui:VisualElement name="game-actions" class="section">
+                <ui:Label text="Simulate Game Events:" class="section-label" />
+                <ui:Button name="btn-add-score" text="Add Score (+10)" class="action-button" />
+                <ui:Button name="btn-take-damage" text="Take Damage (-10)" class="action-button" />
+                <ui:Button name="btn-level-up" text="Level Up" class="action-button" />
+                <ui:Button name="btn-reset" text="Reset Game" class="action-button reset-button" />
+            </ui:VisualElement>
+
+            <!-- Send to WebView -->
+            <ui:VisualElement name="send-to-web" class="section">
+                <ui:Label text="C# → JavaScript:" class="section-label" />
+                <ui:Button name="btn-update-web" text="Update Web Dashboard" class="primary-button" />
+                <ui:Label name="lbl-last-sent" text="Last sent: Never" class="info-label" />
+            </ui:VisualElement>
+
+            <!-- Messages from WebView -->
+            <ui:VisualElement name="messages-from-web" class="section">
+                <ui:Label text="JavaScript → C#:" class="section-label" />
+                <ui:ScrollView name="message-log" class="message-log" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- Right Panel: WebView Dashboard -->
+        <ui:VisualElement name="webview-panel" class="webview-panel">
+            <ui:Label text="Web Dashboard" class="panel-header" />
+            <wv:WebViewElement
+                name="webview"
+                enable-dev-tools="false"
+                auto-create="true"
+                style="flex-grow: 1; border-width: 1px; border-color: rgb(60, 60, 60);" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

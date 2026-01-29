@@ -1,0 +1,13 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "name": "webview-toolkit",
+  "version": "1.0.0",
+  "description": "Native WebView2 integration plugin for Unity with DX11/DX12 support",
+  "homepage": "https://github.com/cantetfelix/WebViewToolkit",
+  "license": "MIT",
+  "supports": "windows & x64",
+  "dependencies": [
+    "webview2",
+    "wil"
+  ]
+}

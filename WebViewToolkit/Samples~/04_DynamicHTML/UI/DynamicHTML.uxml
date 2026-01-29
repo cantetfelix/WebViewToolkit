@@ -1,0 +1,59 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:wv="WebViewToolkit.UIToolkit">
+    <ui:VisualElement name="root" style="flex-grow: 1; flex-direction: row;">
+        <!-- Left Panel: View Controls -->
+        <ui:VisualElement name="control-panel" class="control-panel">
+            <ui:Label text="Dynamic HTML Generator" class="panel-header" />
+
+            <!-- View Selection -->
+            <ui:VisualElement name="view-selection" class="section">
+                <ui:Label text="Select View:" class="section-label" />
+                <ui:Button name="btn-inventory" text="📦 Inventory" class="view-button" />
+                <ui:Button name="btn-quest-log" text="📜 Quest Log" class="view-button" />
+                <ui:Button name="btn-settings" text="⚙️ Settings" class="view-button" />
+            </ui:VisualElement>
+
+            <!-- Inventory Controls -->
+            <ui:VisualElement name="inventory-controls" class="section">
+                <ui:Label text="Inventory Actions:" class="section-label" />
+                <ui:Button name="btn-add-item" text="Add Random Item" class="action-button" />
+                <ui:Button name="btn-remove-item" text="Remove Last Item" class="action-button" />
+                <ui:Button name="btn-clear-inventory" text="Clear All" class="action-button" />
+            </ui:VisualElement>
+
+            <!-- Quest Controls -->
+            <ui:VisualElement name="quest-controls" class="section">
+                <ui:Label text="Quest Actions:" class="section-label" />
+                <ui:Button name="btn-add-quest" text="Add Random Quest" class="action-button" />
+                <ui:Button name="btn-complete-quest" text="Complete First Quest" class="action-button" />
+                <ui:Button name="btn-clear-quests" text="Clear All Quests" class="action-button" />
+            </ui:VisualElement>
+
+            <!-- Settings Controls -->
+            <ui:VisualElement name="settings-controls" class="section">
+                <ui:Label text="Settings Actions:" class="section-label" />
+                <ui:Label text="Volume:" class="setting-label" />
+                <ui:Slider name="slider-volume" low-value="0" high-value="100" value="75" class="slider" />
+                <ui:Label text="Difficulty:" class="setting-label" />
+                <ui:DropdownField name="dropdown-difficulty" class="dropdown" />
+                <ui:Toggle name="toggle-fullscreen" label="Fullscreen" class="toggle" />
+            </ui:VisualElement>
+
+            <!-- Info -->
+            <ui:VisualElement name="info-section" class="section">
+                <ui:Label text="ℹ️ Info" class="section-label" />
+                <ui:Label name="lbl-current-view" text="Current: Inventory" class="info-label" />
+                <ui:Label name="lbl-item-count" text="Items: 0" class="info-label" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- Right Panel: WebView Display -->
+        <ui:VisualElement name="webview-panel" class="webview-panel">
+            <ui:Label text="Generated Content" class="panel-header" />
+            <wv:WebViewElement
+                name="webview"
+                enable-dev-tools="false"
+                auto-create="true"
+                style="flex-grow: 1; border-width: 1px; border-color: rgb(60, 60, 60);" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

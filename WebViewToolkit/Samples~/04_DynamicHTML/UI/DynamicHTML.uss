@@ -1,0 +1,157 @@
+/* ============================================================================
+ * Dynamic HTML Sample - Styling
+ * ============================================================================
+ * Two-panel layout: Controls on left, WebView with generated content on right
+ * ============================================================================
+ */
+
+#root {
+    background-color: rgb(40, 40, 40);
+    flex-grow: 1;
+}
+
+/* ============================================================================
+ * Control Panel (Left Side)
+ * ============================================================================ */
+
+.control-panel {
+    width: 320px;
+    background-color: rgb(45, 45, 45);
+    border-right-width: 2px;
+    border-right-color: rgb(30, 30, 30);
+    padding: 16px;
+}
+
+.panel-header {
+    font-size: 16px;
+    -unity-font-style: bold;
+    color: rgb(220, 220, 220);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(70, 70, 70);
+}
+
+/* ============================================================================
+ * Sections
+ * ============================================================================ */
+
+.section {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    padding: 12px;
+    background-color: rgb(50, 50, 50);
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: rgb(60, 60, 60);
+}
+
+.section-label {
+    font-size: 12px;
+    -unity-font-style: bold;
+    color: rgb(180, 180, 180);
+    margin-bottom: 8px;
+}
+
+/* ============================================================================
+ * View Buttons
+ * ============================================================================ */
+
+.view-button {
+    height: 36px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border-radius: 4px;
+    background-color: rgb(60, 100, 160);
+    color: white;
+    border-width: 0;
+    font-size: 13px;
+    -unity-font-style: bold;
+}
+
+.view-button:hover {
+    background-color: rgb(70, 110, 180);
+}
+
+.view-button:active {
+    background-color: rgb(50, 90, 140);
+}
+
+/* ============================================================================
+ * Action Buttons
+ * ============================================================================ */
+
+.action-button {
+    height: 30px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border-radius: 4px;
+    background-color: rgb(70, 70, 70);
+    color: rgb(220, 220, 220);
+    border-width: 0;
+    font-size: 12px;
+}
+
+.action-button:hover {
+    background-color: rgb(85, 85, 85);
+}
+
+.action-button:active {
+    background-color: rgb(60, 60, 60);
+}
+
+/* ============================================================================
+ * Settings Controls
+ * ============================================================================ */
+
+.setting-label {
+    font-size: 11px;
+    color: rgb(180, 180, 180);
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+.slider {
+    margin-top: 4px;
+    margin-bottom: 8px;
+}
+
+.dropdown {
+    margin-top: 4px;
+    margin-bottom: 8px;
+    height: 24px;
+}
+
+.toggle {
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+/* ============================================================================
+ * Info Labels
+ * ============================================================================ */
+
+.info-label {
+    font-size: 11px;
+    color: rgb(180, 180, 180);
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding: 4px 8px;
+    background-color: rgb(55, 55, 55);
+    border-radius: 3px;
+}
+
+/* ============================================================================
+ * WebView Panel (Right Side)
+ * ============================================================================ */
+
+.webview-panel {
+    flex-grow: 1;
+    padding: 16px;
+    background-color: rgb(40, 40, 40);
+}
+
+#webview {
+    flex-grow: 1;
+    background-color: rgb(30, 30, 30);
+}
